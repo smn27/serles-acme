@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: serles-acme
+Version: 1.0.1
+Summary: A tiny ACME (Automatic Certificate Management Environment) Server that
+Home-page: https://github.com/dvtirol/serles-acme
+Author: Daten-Verarbeitung-Tirol GmbH
+Author-email: project.serles-acme@tirol.gv.at
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/dvtirol/serles-acme/issues
+Project-URL: Documentation, https://serles-acme.readthedocs.io/
+Project-URL: Source Code, https://github.com/dvtirol/serles-acme
+Keywords: pki ejbca acme server certbot
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+
+docs/index.rst
+
