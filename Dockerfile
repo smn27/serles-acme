@@ -1,31 +1,19 @@
 FROM python:3.9
-#ADD * /opt/
-#ADD ./bin/ /bin/
-#ADD ./bin/serles /bin/serles
 
-ENV VIRTUAL_ENV=/opt/serles_venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+#set the environment variable for config.ini file in Docker container
+ENV CONFIG=/serles-acme/config/config.ini  
 
-#RUN . /opt/serles_venv/bin/activate
-RUN python3 -m pip install serles-acme
+WORKDIR  /serles-acme
+COPY ./serles/ /serles-acme/serles/
+COPY ./requirements.txt /serles-acme/
+COPY ./gunicorn_config.py /serles-acme/config/
+COPY ./config.ini /serles-acme/config/
 
-WORKDIR 
-COPY ./serles/backends/adcstorest.py /
-#WORKDIR /opt
-#RUN pip install --upgrade pip && pip install .
-#CMD ["python", "pip install ."]
-#CMD ["gunicorn", "-b", "0.0.0.0:80", "serles:create_app()"]
-#EXPOSE 80
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-#ENV VIRTUAL_ENV=/opt/venv
-#RUN python3 -m venv $VIRTUAL_ENV
-#ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+#gunicorn wird im WORKDIR folder gestartet, deshalb muss dort der serles Ordner liegen um ihn zu starten
+CMD ["gunicorn", "-c", "/serles-acme/config/gunicorn_config.py", "-b", "0.0.0.0:8000", "serles:create_app()"]
+#Limit gunicorn workers to 1 wegen InMemoryDB
 
-# Install dependencies:
-#COPY requirements.txt .
-#RUN pip install -r requirements.txt
-
-# Run the application:
-#COPY myapp.py .
-#CMD ["python", "myapp.py"]
+EXPOSE 8000

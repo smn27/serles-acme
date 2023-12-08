@@ -1,0 +1,6 @@
+services:
+  serles:
+    #build: .
+    image: serles
+    ports:
+      - "8000:8000"
